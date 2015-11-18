@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="bootstrap.min.css" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
 <title>Quick export PDF</title>
-<style id="css">
+<style>
     @font-face {
-        font-family: 'OpenSans';
-        src: url('fonts/OpenSans-Bold.ttf');
+        font-family: 'Open Sans', sans-serif;
     }
 </style>
 <script src="jquery.min.js"></script>
@@ -83,136 +83,88 @@
                     <input type="text" class="form-control" placeholder="Confirm by" id="confirm_by" onkeyup="apply()">
                 </div>
                 <div class="form-group">
-                    <select type="text" class="form-control" placeholder="Seats option" id="seats_option" onchange="marker()">
-                        <option selected>4</option>
+                    <select class="form-control" id="seats_option" onchange="marker();apply()">
+                        <option selected>Seat option</option>
+                        <option>4</option>
                         <option>7</option>
                         <option>16</option>
                     </select>
                 </div>
 
-                <button onclick="exportPdf()">Export</button>
+                <button class="btn btn-success" onclick="exportPdf()">Export</button>
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
-        <canvas id="myCanvas" width="1500" height="1800" style="font-family: 'OpenSans';border:1px solid #d3d3d3;">
+        <canvas id="myCanvas" width="1500" height="1800">
         </canvas>
     </div>
 </div>
-
-
-<!--<p>Preview:</p>-->
-<!--<canvas id="myCanvas" width="1500" height="1800" style="font-family: 'OpenSans';border:1px solid #d3d3d3;">-->
-<!--</canvas>-->
-
-
-
-<!--<img id="img" src="doc.png" style="display: none">-->
-
 <script>
-//    drawImage();
-//    apply();
-//    function drawImage() {
-//        var c = document.getElementById("myCanvas");
-//        var ctx = c.getContext("2d");
-//        var img = document.getElementById("img");
-//        ctx.drawImage(img, 0, 0, 1500, 1800);
-//
-//        ctx.fillStyle = '#4c4c4e';
-//    }
-$('#guest_name').bind('click', apply);
     var c = $('#myCanvas')[0];
     var ctx = c.getContext('2d');
 
     var img = new Image();
-img.onload = function() {
-    ctx.drawImage(img, 0, 0,1500, 1800);
-    };
-img.src = "doc.png";
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0,1500, 1800);
+        };
+    img.src = "doc.png";
 
     function apply() {
         ctx.clearRect(0, 0, c.width, c.height);
         ctx.drawImage(img, 0, 0,1500, 1800);
-        //re-draw image
-//
-//        var c = document.getElementById("myCanvas");
-//        var ctx = c.getContext("2d");
-//        var img = document.getElementById("img");
-//        ctx.clearRect(0, 0, c.width, c.height);
-//        ctx.drawImage(img, 0, 0, 1500, 1800);
 
         ctx.fillStyle = '#4c4c4e';
         //name
-        ctx.font = "bold 27px OpenSans";
-        name = $('#name').val();
-        ctx.fillText(name, 142, 360);
+        ctx.font = "bold 27px Open Sans";
+        ctx.fillText($('#name').val(), 142, 360);
         //company
-        ctx.font = "25px OpenSans";
-        company = $('#company').val();
-        ctx.fillText(company, 253, 385);
+        ctx.font = "25px Open Sans";
+        ctx.fillText($('#company').val(), 253, 385);
         //address
-        address = $('#address').val();
-        ctx.fillText(address, 200, 410);
+        ctx.fillText($('#address').val(), 200, 410);
         //phone
-        phone = $('#phone').val();
-        ctx.fillText(phone, 223, 436);
+        ctx.fillText($('#phone').val(), 223, 436);
         //email
-        email = $('#email').val();
-        ctx.fillText(email, 200, 463);
+        ctx.fillText($('#email').val(), 200, 463);
         //guest name
-        guest_name = $('#guest_name').val();
-        ctx.fillText(guest_name, 204, 533);
+        ctx.fillText($('#guest_name').val(), 204, 533);
 
-        ctx.font = "bold 27px OpenSans";
-        ctx.fillText(guest_name, 312, 611);
+        ctx.font = "bold 27px Open Sans";
+        ctx.fillText($('#guest_name').val(), 312, 611);
         //confirm no
-        confirm_no = $('#confirm_no').val();
-        ctx.fillText(confirm_no, 330, 637);
+        ctx.fillText($('#confirm_no').val(), 330, 637);
         //arrival date
-        arrival_date = $('#arrival_date').val();
-        ctx.fillText(arrival_date, 289, 663);
+        ctx.fillText($('#arrival_date').val(), 289, 663);
         //arrival flight
-        arrival_flight = $('#arrival_flight').val();
-        ctx.fillText(arrival_flight, 652, 663);
+        ctx.fillText($('#arrival_flight').val(), 652, 663);
         //arrival time
-        arrival_time = $('#arrival_time').val();
-        ctx.fillText(arrival_time, 1040, 663);
+        ctx.fillText($('#arrival_time').val(), 1040, 663);
         //depature date
-        depature_date = $('#depature_date').val();
-        ctx.fillText(depature_date, 327, 688);
+        ctx.fillText($('#depature_date').val(), 327, 688);
         //depature flight
-        depature_flight = $('#depature_flight').val();
-        ctx.fillText(depature_flight, 652, 688);
+        ctx.fillText($('#depature_flight').val(), 652, 688);
         //depature time
-        depature_time = $('#depature_time').val();
-        ctx.fillText(depature_time, 1040, 688);
+        ctx.fillText($('#depature_time').val(), 1040, 688);
         //room type
-        room_type = $('#room_type').val();
-        ctx.fillText(room_type, 280, 714);
+        ctx.fillText($('#room_type').val(), 280, 714);
         //total adult
-        total_adult = $('#total_adult').val();
-        ctx.fillText(total_adult, 335, 740);
+        ctx.fillText($('#total_adult').val(), 335, 740);
         //room rate
-        room_rate = $('#room_rate').val();
-        ctx.fillText(room_rate, 266, 765);
+        ctx.fillText($('#room_rate').val(), 266, 765);
         //pickup
-        pickup_service = $('#pickup_service').val();
-        ctx.fillText(pickup_service, 314, 791);
+        ctx.fillText($('#pickup_service').val(), 314, 791);
         //payment
-        payment_method = $('#payment_method').val();
-        ctx.fillText(payment_method, 357, 816);
+        ctx.fillText($('#payment_method').val(), 357, 816);
         //payment
-        guarantee = $('#guarantee').val();
-        ctx.fillText(guarantee, 304, 842);
+        ctx.fillText($('#guarantee').val(), 304, 842);
         //request
-        request = $('#request').val();
-        ctx.fillText(request, 335, 872);
+        ctx.fillText($('#request').val(), 335, 872);
 
         //confirm_by
-        confirm_by = $('#confirm_by').val();
-        ctx.font = "25px OpenSans";
-        ctx.fillText(confirm_by, 817, 1641);
+        ctx.font = "25px Open Sans";
+        ctx.fillText($('#confirm_by').val(), 817, 1641);
     }
         //export
 
@@ -223,7 +175,7 @@ img.src = "doc.png";
                         'image/png');
                 var doc = new jsPDF('p','pt','a2');
                 doc.addImage(imgData, 'PNG', 0, 0,1190,1683);
-                doc.save('.pdf');
+                doc.save('demo.pdf');
             }
         });
     }
