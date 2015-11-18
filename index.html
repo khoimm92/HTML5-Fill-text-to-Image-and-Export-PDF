@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="bootstrap.min.css" />
+<title>Quick export PDF</title>
+<style id="css">
+    @font-face {
+        font-family: 'OpenSans';
+        src: url('fonts/OpenSans-Bold.ttf');
+    }
+</style>
+<script src="jquery.min.js"></script>
+<!--<script src="jspdf.min.js"></script>-->
+<script src="jspdf.debug.js"></script>
+<script src="html2canvas.js"></script>
+<body>
+<div class="row">
+    <div class="col-md-5" style="margin: 20px">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Name" id="name" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Company" id="company" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Address" id="address" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Phone" id="phone" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Emai" id="email" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Guest name" id="guest_name" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Confirm No" id="confirm_no" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Arrival date" id="arrival_date" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Arrival flight" id="arrival_flight" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Arrival time" id="arrival_time" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Depature date" id="depature_date" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Depature flight" id="depature_flight" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Depature time" id="depature_time" onkeyup="apply()">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Room type" id="room_type" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Total adult/child" id="total_adult" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Room rate" id="room_rate" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Pickup service" id="pickup_service" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Payment method" id="payment_method" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Guarantee by" id="guarantee" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Special request" id="request" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Confirm by" id="confirm_by" onkeyup="apply()">
+                </div>
+                <div class="form-group">
+                    <select type="text" class="form-control" placeholder="Seats option" id="seats_option" onchange="marker()">
+                        <option selected>4</option>
+                        <option>7</option>
+                        <option>16</option>
+                    </select>
+                </div>
+
+                <button onclick="exportPdf()">Export</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <canvas id="myCanvas" width="1500" height="1800" style="font-family: 'OpenSans';border:1px solid #d3d3d3;">
+        </canvas>
+    </div>
+</div>
+
+
+<!--<p>Preview:</p>-->
+<!--<canvas id="myCanvas" width="1500" height="1800" style="font-family: 'OpenSans';border:1px solid #d3d3d3;">-->
+<!--</canvas>-->
+
+
+
+<!--<img id="img" src="doc.png" style="display: none">-->
+
+<script>
+//    drawImage();
+//    apply();
+//    function drawImage() {
+//        var c = document.getElementById("myCanvas");
+//        var ctx = c.getContext("2d");
+//        var img = document.getElementById("img");
+//        ctx.drawImage(img, 0, 0, 1500, 1800);
+//
+//        ctx.fillStyle = '#4c4c4e';
+//    }
+$('#guest_name').bind('click', apply);
+    var c = $('#myCanvas')[0];
+    var ctx = c.getContext('2d');
+
+    var img = new Image();
+img.onload = function() {
+    ctx.drawImage(img, 0, 0,1500, 1800);
+    };
+img.src = "doc.png";
+
+    function apply() {
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.drawImage(img, 0, 0,1500, 1800);
+        //re-draw image
+//
+//        var c = document.getElementById("myCanvas");
+//        var ctx = c.getContext("2d");
+//        var img = document.getElementById("img");
+//        ctx.clearRect(0, 0, c.width, c.height);
+//        ctx.drawImage(img, 0, 0, 1500, 1800);
+
+        ctx.fillStyle = '#4c4c4e';
+        //name
+        ctx.font = "bold 27px OpenSans";
+        name = $('#name').val();
+        ctx.fillText(name, 142, 360);
+        //company
+        ctx.font = "25px OpenSans";
+        company = $('#company').val();
+        ctx.fillText(company, 253, 385);
+        //address
+        address = $('#address').val();
+        ctx.fillText(address, 200, 410);
+        //phone
+        phone = $('#phone').val();
+        ctx.fillText(phone, 223, 436);
+        //email
+        email = $('#email').val();
+        ctx.fillText(email, 200, 463);
+        //guest name
+        guest_name = $('#guest_name').val();
+        ctx.fillText(guest_name, 204, 533);
+
+        ctx.font = "bold 27px OpenSans";
+        ctx.fillText(guest_name, 312, 611);
+        //confirm no
+        confirm_no = $('#confirm_no').val();
+        ctx.fillText(confirm_no, 330, 637);
+        //arrival date
+        arrival_date = $('#arrival_date').val();
+        ctx.fillText(arrival_date, 289, 663);
+        //arrival flight
+        arrival_flight = $('#arrival_flight').val();
+        ctx.fillText(arrival_flight, 652, 663);
+        //arrival time
+        arrival_time = $('#arrival_time').val();
+        ctx.fillText(arrival_time, 1040, 663);
+        //depature date
+        depature_date = $('#depature_date').val();
+        ctx.fillText(depature_date, 327, 688);
+        //depature flight
+        depature_flight = $('#depature_flight').val();
+        ctx.fillText(depature_flight, 652, 688);
+        //depature time
+        depature_time = $('#depature_time').val();
+        ctx.fillText(depature_time, 1040, 688);
+        //room type
+        room_type = $('#room_type').val();
+        ctx.fillText(room_type, 280, 714);
+        //total adult
+        total_adult = $('#total_adult').val();
+        ctx.fillText(total_adult, 335, 740);
+        //room rate
+        room_rate = $('#room_rate').val();
+        ctx.fillText(room_rate, 266, 765);
+        //pickup
+        pickup_service = $('#pickup_service').val();
+        ctx.fillText(pickup_service, 314, 791);
+        //payment
+        payment_method = $('#payment_method').val();
+        ctx.fillText(payment_method, 357, 816);
+        //payment
+        guarantee = $('#guarantee').val();
+        ctx.fillText(guarantee, 304, 842);
+        //request
+        request = $('#request').val();
+        ctx.fillText(request, 335, 872);
+
+        //confirm_by
+        confirm_by = $('#confirm_by').val();
+        ctx.font = "25px OpenSans";
+        ctx.fillText(confirm_by, 817, 1641);
+    }
+        //export
+
+    function exportPdf() {
+        html2canvas($("#myCanvas"), {
+            onrendered: function(canvas) {
+                var imgData = canvas.toDataURL(
+                        'image/png');
+                var doc = new jsPDF('p','pt','a2');
+                doc.addImage(imgData, 'PNG', 0, 0,1190,1683);
+                doc.save('.pdf');
+            }
+        });
+    }
+
+
+    function marker(){
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.drawImage(img, 0, 0,1500, 1800);
+
+        //mark icon
+        seats_option = $('#seats_option').val();
+        base_image = new Image();
+        base_image.src = 'mark_ico.png';
+        base_image.onload = function(){
+            switch (parseInt(seats_option)){
+                case 4:
+                    ctx.drawImage(base_image, 153, 1238);
+                    break;
+                case 7:
+                    ctx.drawImage(base_image, 565, 1238);
+                    break;
+                case 16:
+                    ctx.drawImage(base_image, 1003, 1238);
+                    break;
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
